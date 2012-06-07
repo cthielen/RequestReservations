@@ -11,16 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120607194626) do
+ActiveRecord::Schema.define(:version => 20120607194934) do
 
   create_table "reservations", :force => true do |t|
     t.integer  "user_id"
     t.string   "description"
-    t.date     "requested"
+    t.date     "requested_at"
     t.integer  "expiration"
     t.integer  "status_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.integer  "type"
+    t.string   "ip_address"
+    t.string   "port"
   end
 
   create_table "statuses", :force => true do |t|
