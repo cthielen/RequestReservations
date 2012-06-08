@@ -14,17 +14,23 @@
   <div class="control-group">
     <%= f.label :type, :class => "control-label" %>
     <div class="controls">
-      <div class="btn-group" data-toggle-name="is_private" data-toggle="buttons-radio" >
-        <button type="button" value="0" class="btn btn-large" data-toggle="button">Static IP Reservation</button>
-        <button type="button" value="1" class="btn btn-large" data-toggle="button">Firewall Exemption Reservation</button>
+      <div class="btn-group" data-toggle-name="reservation[type]" data-toggle="buttons-radio" >
+        <button type="button" value="0" class="btn btn-large" data-toggle="button" id="static_ip">Static IP Reservation</button>
+        <button type="button" value="1" class="btn btn-large" data-toggle="button" id="firewall_exemption">Firewall Exemption Reservation</button>
       </div>
-      <input type="hidden" name="is_private" value="0" />
+      <input type="hidden" name="reservation[type]" value="0" />
     </div>
   </div>
   <div class="control-group">
     <%= f.label :ip_address, "IP Address", :class => "control-label" %>
     <div class="controls">
       <input type="text" class="span1" id="ip_field_1" maxlength="3" />.<input type="text" class="span1" id="ip_field_2" maxlength="3" />.<input type="text" class="span1" id="ip_field_3" maxlength="3" />.<input type="text" class="span1" id="ip_field_4" maxlength="3" />
+    </div>
+  </div>
+  <div class="control-group" style="display: none;" id="reservation-port-field">
+    <%= f.label :port, :class => "control-label" %>
+    <div class="controls">
+      <%= f.text_field :port, :maxlength => 6, :class => "span1" %>
     </div>
   </div>
   <div class="control-group">

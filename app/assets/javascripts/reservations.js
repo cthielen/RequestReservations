@@ -10,11 +10,21 @@ jQuery(function($) {
       var button = $(this);
       button.live('click', function(){
           hidden.val($(this).val());
+          hidden.change(); // $.val() doesn't fire a change event, so do it manually
       });
       if(button.val() == hidden.val()) {
         button.addClass('active');
       }
     });
+  });
+  
+  // Show/hide the port field depending on the radio button state
+  $('input[name="reservation[type]"]').on('change', function(e) {
+    if(e.target.value == 1) {
+      $('div#reservation-port-field').slideDown();
+    } else {
+      $('div#reservation-port-field').slideUp();
+    }
   });
   
   // For auto-tabbing the IP address
