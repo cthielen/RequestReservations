@@ -19,8 +19,8 @@
         <a class="brand" href="#" style="color: #fff;">Request Reservations</a>
         <div class="nav-collapse">
           <ul class="nav">
-            <li class="active"><%= link_to "New Request", new_reservation_path %></li>
-            <li><%= link_to "Existing Requests", reservations_path %></li>
+            <%= li_link_with_class({:title => 'New Request', :controller => 'reservations', :action => 'new'}) %>
+            <%= li_link_with_class({:title => 'Existing Requests', :controller => 'reservations', :action => 'index'}) %>
           </ul>
         </div>
       </div>
