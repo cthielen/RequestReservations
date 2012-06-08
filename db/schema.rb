@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120608001135) do
+ActiveRecord::Schema.define(:version => 20120608010921) do
 
   create_table "reservations", :force => true do |t|
     t.integer  "user_id"
@@ -19,9 +19,9 @@ ActiveRecord::Schema.define(:version => 20120608001135) do
     t.date     "requested_at"
     t.integer  "expiration"
     t.integer  "status_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-    t.integer  "type"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+    t.integer  "reservation_type"
     t.string   "ip_address"
     t.string   "port"
   end
