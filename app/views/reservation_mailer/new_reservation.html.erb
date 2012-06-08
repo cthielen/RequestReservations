@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <p>
+    <% if @reservation.reservation_type == RESERVATION_STATICIP %>
+      Static IP Address: <%= @reservation.ip_address %><br />
+      Reason: <%= @reservation.reason %>
+    <% else %>
+      Firewall Exemption Address: <%= @reservation.ip_address %><br />
+      Port: <%= @reservation.port %>
+      Reason: <%= @reservation.reason %>
+    <% end %>
+    </p>
+    <p>
+      <%= link_to "Approve This Request", reservation_approve_path(@reservation) %><br />
+      <%= link_to "Deny This Request", reservation_deny_path(@reservation) %>      
+    </p>
+  </body>
+</html>
