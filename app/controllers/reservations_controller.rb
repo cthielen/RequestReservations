@@ -2,7 +2,7 @@ class ReservationsController < ApplicationController
   # GET /reservations
   # GET /reservations.json
   def index
-    @reservations = Reservation.all
+    @reservations = Reservation.where(:user_id => 0)
 
     respond_to do |format|
       format.html # index.html.erb
