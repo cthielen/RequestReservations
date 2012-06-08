@@ -50,6 +50,7 @@ class ReservationsController < ApplicationController
 
     respond_to do |format|
       if @reservation.save
+        ReservationMailer.new_reservation(@reservation).deliver
         format.html { redirect_to reservations_path, notice: 'Reservation was successfully created.' }
         format.json { render json: @reservation, status: :created, location: @reservation }
       else
@@ -84,6 +85,28 @@ class ReservationsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to reservations_url }
       format.json { head :no_content }
+    end
+  end
+  
+  def approve
+    @reservation = Reservation.find(params[:reservation_id])
+    @reservation.status = Status.find_by_label('Approved')
+    @reservation.save
+
+    respond_to do |format|
+      format.html { redirect_to @reservation, notice: 'Reservation was approved.' }
+      format.json { render json: @reservation }
+    end
+  end
+  
+  def deny
+    @reservation = Reservation.find(params[:reservation_id])
+    @reservation.status = Status.find_by_label('Denied')
+    @reservation.save
+
+    respond_to do |format|
+      format.html { redirect_to @reservation, notice: 'Reservation was denied.' }
+      format.json { render json: @reservation }
     end
   end
 end
