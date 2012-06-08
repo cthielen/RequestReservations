@@ -12,9 +12,25 @@
   <% end %>
 
   <div class="control-group">
-    <%= f.label :description, :class => "control-label" %>
+    <%= f.label :type, :class => "control-label" %>
     <div class="controls">
-      <%= f.text_area :description, :rows => 10, :cols => 80, :class => "span6" %>
+      <div class="btn-group" data-toggle-name="is_private" data-toggle="buttons-radio" >
+        <button type="button" value="0" class="btn btn-large" data-toggle="button">Static IP Reservation</button>
+        <button type="button" value="1" class="btn btn-large" data-toggle="button">Firewall Exemption Reservation</button>
+      </div>
+      <input type="hidden" name="is_private" value="0" />
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :ip_address, "IP Address", :class => "control-label" %>
+    <div class="controls">
+      <input type="text" class="span1" id="ip_field_1" maxlength="3" />.<input type="text" class="span1" id="ip_field_2" maxlength="3" />.<input type="text" class="span1" id="ip_field_3" maxlength="3" />.<input type="text" class="span1" id="ip_field_4" maxlength="3" />
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :reason, :class => "control-label" %>
+    <div class="controls">
+      <%= f.text_area :reason, :rows => 10, :cols => 80, :class => "span6" %>
     </div>
   </div>
   <div class="form-actions">
