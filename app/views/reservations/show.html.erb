@@ -1,20 +1,22 @@
 <p id="notice"><%= notice %>
     <% unless notice.nil? %>
-    <a class="dismiss">dismiss</a></p>
+    <a class="dismiss">dismiss</a>
     <% end %>
+</p>
+
 <p>
   <b>User:</b>
   <%= @reservation.user_id %>
 </p>
 
 <p>
-  <b>Description:</b>
-  <%= @reservation.description %>
+  <b>Reason:</b>
+  <%= @reservation.reason %>
 </p>
 
 <p>
   <b>Requested:</b>
-  <%= @reservation.requested %>
+  <%= @reservation.requested_at %>
 </p>
 
 <p>

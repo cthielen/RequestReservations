@@ -1,9 +1,9 @@
-<h1>Listing reservations</h1>
+<h1>Existing Reservations</h1>
 
 <table>
   <tr>
     <th>User</th>
-    <th>Description</th>
+    <th>Reason</th>
     <th>Requested</th>
     <th>Expiration</th>
     <th>Status</th>
@@ -15,8 +15,8 @@
 <% @reservations.each do |reservation| %>
   <tr>
     <td><%= reservation.user_id %></td>
-    <td><%= reservation.description %></td>
-    <td><%= reservation.requested %></td>
+    <td><%= reservation.reason %></td>
+    <td><%= reservation.requested_at %></td>
     <td><%= reservation.expiration %></td>
     <td><%= reservation.status_id %></td>
     <td><%= link_to 'Show', reservation %></td>

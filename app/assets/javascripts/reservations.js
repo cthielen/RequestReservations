@@ -19,7 +19,7 @@ jQuery(function($) {
   });
   
   // Show/hide the port field depending on the radio button state
-  $('input[name="reservation[type]"]').on('change', function(e) {
+  $('input[name="reservation[reservation_type]"]').on('change', function(e) {
     if(e.target.value == 1) {
       $('div#reservation-port-field').slideDown();
     } else {

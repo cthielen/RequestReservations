@@ -25,7 +25,7 @@ class ReservationsController < ApplicationController
   # GET /reservations/new.json
   def new
     @reservation = Reservation.new
-
+    
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @reservation }
@@ -41,6 +41,12 @@ class ReservationsController < ApplicationController
   # POST /reservations.json
   def create
     @reservation = Reservation.new(params[:reservation])
+
+    # Fill in implied parameters
+    @reservation.status = Status.find_by_label("New")
+    @reservation.expiration = 180 # days
+    @reservation.requested_at = Time.now
+    @reservation.user_id = 0
 
     respond_to do |format|
       if @reservation.save

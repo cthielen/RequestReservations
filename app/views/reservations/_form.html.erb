@@ -14,11 +14,11 @@
   <div class="control-group">
     <%= f.label :type, :class => "control-label" %>
     <div class="controls">
-      <div class="btn-group" data-toggle-name="reservation[type]" data-toggle="buttons-radio" >
+      <div class="btn-group" data-toggle-name="reservation[reservation_type]" data-toggle="buttons-radio" >
         <button type="button" value="0" class="btn btn-large" data-toggle="button" id="static_ip">Static IP Reservation</button>
         <button type="button" value="1" class="btn btn-large" data-toggle="button" id="firewall_exemption">Firewall Exemption Reservation</button>
       </div>
-      <input type="hidden" name="reservation[type]" value="0" />
+      <input type="hidden" name="reservation[reservation_type]" value="0" />
     </div>
   </div>
   <div class="control-group">
