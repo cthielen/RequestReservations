@@ -31,4 +31,10 @@ jQuery(function($) {
   $('#ip_field_1').autotab({ target: $('#ip_field_2') });
   $('#ip_field_2').autotab({ target: $('#ip_field_3') });
   $('#ip_field_3').autotab({ target: $('#ip_field_4') });
+  
+  // For keeping the IP address hidden field up-to-date
+  $('#ip_field_1, #ip_field_2, #ip_field_3, #ip_field_4').change(function() { 
+    var ip_address = $('#ip_field_1').val() + '.' + $('#ip_field_2').val() + '.' + $('#ip_field_3').val() + '.' + $('#ip_field_4').val(); 
+    $('#reservation_ip_address').val(ip_address);
+  });
 });
