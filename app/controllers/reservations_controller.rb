@@ -2,7 +2,7 @@ class ReservationsController < ApplicationController
   # GET /reservations
   # GET /reservations.json
   def index
-    @reservations = Reservation.where(:user_id => 0)
+    @reservations = Reservation.where(:loginid => session[:cas_user])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -46,11 +46,11 @@ class ReservationsController < ApplicationController
     @reservation.status = Status.find_by_label("New")
     @reservation.expiration = 180 # days
     @reservation.requested_at = Time.now
-    @reservation.user_id = 0
+    @reservation.loginid = session[:cas_user]
 
     respond_to do |format|
       if @reservation.save
-        format.html { redirect_to @reservation, notice: 'Reservation was successfully created.' }
+        format.html { redirect_to reservations_path, notice: 'Reservation was successfully created.' }
         format.json { render json: @reservation, status: :created, location: @reservation }
       else
         format.html { render action: "new" }
