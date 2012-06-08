@@ -1,31 +1,25 @@
-<h1>Existing Reservations</h1>
+<p class="lead">
+  The following is a list of reservations you've made in the past:
+</p>
 
-<table>
+<table class="table table-striped">
   <tr>
-    <th>User</th>
-    <th>Reason</th>
-    <th>Requested</th>
-    <th>Expiration</th>
     <th>Status</th>
-    <th></th>
-    <th></th>
+    <th>Requested</th>
+    <th>Reason</th>
+    <th>When</th>
+    <th>Expires</th>
     <th></th>
   </tr>
 
 <% @reservations.each do |reservation| %>
   <tr>
-    <td><%= reservation.user_id %></td>
+    <td><%= reservation.status.label %></td>
+    <td><%= reservation.reservation_type_in_words %></td>
     <td><%= reservation.reason %></td>
-    <td><%= reservation.requested_at %></td>
-    <td><%= reservation.expiration %></td>
-    <td><%= reservation.status_id %></td>
-    <td><%= link_to 'Show', reservation %></td>
-    <td><%= link_to 'Edit', edit_reservation_path(reservation) %></td>
-    <td><%= link_to 'Destroy', reservation, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= time_ago_in_words reservation.requested_at %> ago</td>
+    <td><%= time_ago_in_words reservation.requested_at + reservation.expiration.days %></td>
+    <td><%= link_to 'Cancel', reservation, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>
-
-<br />
-
-<%= link_to 'New Reservation', new_reservation_path %>
