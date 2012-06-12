@@ -1,6 +1,4 @@
 # Initializes SysAid based on settings in config/sysaid.yml
-SYSAID_SUPPORT = false
-
 begin
   sysaid_settings = YAML.load_file("#{Rails.root.to_s}/config/sysaid.yml")['sysaid']
   
@@ -12,6 +10,10 @@ begin
   }
   
   SYSAID_SUPPORT = true
+  
+  SYSAID_STATUS_NEW = 1
+  SYSAID_STATUS_CLOSED = 3
 rescue Errno::ENOENT => e
   logger.warn "config/sysaid.yml is missing. Disabling SysAid support."
+  SYSAID_SUPPORT = false
 end
