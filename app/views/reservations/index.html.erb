@@ -6,7 +6,8 @@
   <tr>
     <th>Status</th>
     <th>Requested</th>
-    <th>Reason</th>
+    <th>IP Address</th>
+    <th>Port</th>
     <th>When</th>
     <th>Expires</th>
     <th></th>
@@ -16,7 +17,8 @@
   <tr>
     <td><%= reservation.status.label %></td>
     <td><%= reservation.reservation_type_in_words %></td>
-    <td><%= reservation.reason %></td>
+    <td><%= reservation.ip_address %></td>
+    <td><%= reservation.port %></td>
     <td><%= time_ago_in_words reservation.requested_at %> ago</td>
     <td><%= time_ago_in_words reservation.requested_at + reservation.expiration.days %></td>
     <td><%= link_to 'Cancel', reservation, confirm: 'Are you sure?', method: :delete %></td>

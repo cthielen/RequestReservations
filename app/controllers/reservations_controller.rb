@@ -50,7 +50,22 @@ class ReservationsController < ApplicationController
 
     respond_to do |format|
       if @reservation.save
+        # Generate a mail
         ReservationMailer.new_reservation(@reservation).deliver
+
+        if SYSAID_SUPPORT
+          # Generate a ticket
+          ticket = SysAid::Ticket.new
+          ticket.title = "New #{@reservation.reservation_type_in_words} request from #{@reservation.loginid}"
+          ticket.assignedTo = "cthielen"
+          ticket.requestUser = @reservation.loginid
+          ticket.status = SYSAID_STATUS_NEW
+          ticket.save
+          logger.info "Generated a SysAid ticket with ID #{ticket.id} for reservation no. #{@reservation.id}"
+          @reservation.sysaid_id = ticket.id
+          @reservation.save # we'll assume this works since it just did and we're only changing an optional parameter
+        end
+        
         format.html { redirect_to reservations_path, notice: 'Reservation was successfully created.' }
         format.json { render json: @reservation, status: :created, location: @reservation }
       else
@@ -78,9 +93,19 @@ class ReservationsController < ApplicationController
 
   # DELETE /reservations/1
   # DELETE /reservations/1.json
+  # Note: We never delete a reservation. We merely change its status to cancelled.
   def destroy
     @reservation = Reservation.find(params[:id])
-    @reservation.destroy
+    @reservation.status = Status.find_by_label("Cancelled")
+    @reservation.save
+    
+    if SYSAID_SUPPORT
+      # Ensure the corresponding SysAid ticket is updated
+      ticket = SysAid.find_by_id(@reservation.sysaid_id)
+      ticket.status = SYSAID_STATUS_CLOSED
+      ticket.notes = "Closed by Request Reservations system"
+      ticket.save
+    end
 
     respond_to do |format|
       format.html { redirect_to reservations_url }
