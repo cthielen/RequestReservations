@@ -37,4 +37,17 @@ jQuery(function($) {
     var ip_address = $('#ip_field_1').val() + '.' + $('#ip_field_2').val() + '.' + $('#ip_field_3').val() + '.' + $('#ip_field_4').val(); 
     $('#reservation_ip_address').val(ip_address);
   });
+  
+  // If the hidden IP address field is set, it means the form data was pre-populated.
+  // We need to break apart the hidden IP field and set the 4 inputs that represent the IP address
+  if($("input#reservation_ip_address").length) {
+    if($("input#reservation_ip_address").val() !== "") {
+      // populate the IP address fields
+      var fields = $("input#reservation_ip_address").val().split(".");
+      $('#ip_field_1').val(fields[0]);
+      $('#ip_field_2').val(fields[1]);
+      $('#ip_field_3').val(fields[2]);
+      $('#ip_field_4').val(fields[3]);
+    }
+  }
 });
