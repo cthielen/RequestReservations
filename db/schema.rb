@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120608184217) do
+ActiveRecord::Schema.define(:version => 20120612234047) do
 
   create_table "reservations", :force => true do |t|
     t.string   "loginid"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(:version => 20120608184217) do
     t.integer  "reservation_type"
     t.string   "ip_address"
     t.string   "port"
+    t.integer  "sysaid_id"
   end
 
   create_table "statuses", :force => true do |t|

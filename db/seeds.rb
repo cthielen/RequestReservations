@@ -6,4 +6,4 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-statuses = Status.create([{ label: 'New' }, { label: 'Denied' }, { label: 'Approved' }, { label: 'Expired' }])
+statuses = Status.create([{ label: 'New' }, { label: 'Denied' }, { label: 'Approved' }, { label: 'Expired' }, { label: 'Cancelled' }])
