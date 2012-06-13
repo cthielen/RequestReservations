@@ -18,7 +18,10 @@ RequestReservations::Application.configure do
 
   # Send emails to file
   config.action_mailer.delivery_method = :file
-
+  
+  # We need full paths in the mailer, so we need to specify a host
+  config.action_mailer.default_url_options = { :host => "example.com" }
+  
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
 

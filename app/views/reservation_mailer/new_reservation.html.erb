@@ -15,8 +15,8 @@
     <% end %>
     </p>
     <p>
-      <%= link_to "Approve This Request", reservation_approve_path(@reservation) %><br />
-      <%= link_to "Deny This Request", reservation_deny_path(@reservation) %>      
+      <%= link_to "Approve This Request", reservation_approve_path(@reservation, :only_path => false) %><br />
+      <%= link_to "Deny This Request", reservation_deny_path(@reservation, :only_path => false) %>
     </p>
   </body>
 </html>
