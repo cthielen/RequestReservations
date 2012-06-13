@@ -4,6 +4,9 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   
   def welcome
+    unless session[:cas_user].nil?
+      redirect_to new_reservation_url
+    end
   end
   
   def logout
