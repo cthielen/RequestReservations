@@ -103,7 +103,7 @@ class ReservationsController < ApplicationController
       # Ensure the corresponding SysAid ticket is updated
       ticket = SysAid.find_by_id(@reservation.sysaid_id)
       ticket.status = SYSAID_STATUS_CLOSED
-      ticket.notes = "Closed by Request Reservations system"
+      ticket.notes = "Closed by Request Reservations system (cancelled)"
       ticket.save
     end
 
@@ -118,6 +118,14 @@ class ReservationsController < ApplicationController
     @reservation.status = Status.find_by_label('Approved')
     @reservation.save
 
+    if SYSAID_SUPPORT
+      # Ensure the corresponding SysAid ticket is updated
+      ticket = SysAid.find_by_id(@reservation.sysaid_id)
+      ticket.status = SYSAID_STATUS_CLOSED
+      ticket.notes = "Closed by Request Reservations system (approved)"
+      ticket.save
+    end
+
     respond_to do |format|
       format.html { redirect_to @reservation, notice: 'Reservation was approved.' }
       format.json { render json: @reservation }
@@ -128,6 +136,14 @@ class ReservationsController < ApplicationController
     @reservation = Reservation.find(params[:reservation_id])
     @reservation.status = Status.find_by_label('Denied')
     @reservation.save
+    
+    if SYSAID_SUPPORT
+      # Ensure the corresponding SysAid ticket is updated
+      ticket = SysAid.find_by_id(@reservation.sysaid_id)
+      ticket.status = SYSAID_STATUS_CLOSED
+      ticket.notes = "Closed by Request Reservations system (denied)"
+      ticket.save
+    end
 
     respond_to do |format|
       format.html { redirect_to @reservation, notice: 'Reservation was denied.' }
