@@ -19,14 +19,18 @@
         <a class="brand" href="#" style="color: #fff;">Request Reservations</a>
         <div class="nav-collapse">
           <ul class="nav">
+            <% unless session[:cas_user].nil? %>
             <%= li_link_with_class({:title => 'New Request', :controller => 'reservations', :action => 'new'}) %>
             <%= li_link_with_class({:title => 'Existing Requests', :controller => 'reservations', :action => 'index'}) %>
+            <% end %>
           </ul>
           
           <ul class="nav pull-right">
+            <% unless session[:cas_user].nil? %>
             <li class="dropdown">
               <%= li_link_with_class({:title => 'Log out', :controller => 'application', :action => 'logout'}) %>
             </li>
+            <% end %>
           </ul>
         </div>
       </div>

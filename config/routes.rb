@@ -3,8 +3,9 @@ RequestReservations::Application.routes.draw do
     get 'approve'
     get 'deny'
   end
-
-  root :to => 'reservations#new'
   
+  get '/welcome', :controller => "application", :action => "welcome"
   get '/logout', :controller => "application", :action => "logout"
+  
+  root :to => 'application#welcome'
 end
