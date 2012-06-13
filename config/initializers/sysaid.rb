@@ -14,6 +14,6 @@ begin
   SYSAID_STATUS_NEW = 1
   SYSAID_STATUS_CLOSED = 3
 rescue Errno::ENOENT => e
-  logger.warn "config/sysaid.yml is missing. Disabling SysAid support."
+  Rails.logger.warn "config/sysaid.yml is missing. Disabling SysAid support."
   SYSAID_SUPPORT = false
 end
