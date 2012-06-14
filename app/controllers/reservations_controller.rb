@@ -14,6 +14,7 @@ class ReservationsController < ApplicationController
   # GET /reservations/1.json
   def show
     @reservation = Reservation.find(params[:id])
+    @reservation_days = (Date.today - @reservation.requested_at).to_i
 
     respond_to do |format|
       format.html # show.html.erb

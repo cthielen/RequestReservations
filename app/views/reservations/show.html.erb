@@ -1,34 +1,55 @@
-<p id="notice"><%= notice %>
-    <% unless notice.nil? %>
-    <a class="dismiss">dismiss</a>
-    <% end %>
-</p>
+<% unless notice.nil? %>
+  <div class="alert">
+    <button class="close" data-dismiss="alert">×</button>
+    <%= notice %>
+  </div>
+<% end %>
 
-<p>
-  <b>User:</b>
-  <%= @reservation.loginid %>
-</p>
+<table class="table">
+  <tr>
+    <td>User:</td>
+    <td><%= @reservation.loginid %></td>
+  </tr>
 
-<p>
-  <b>Reason:</b>
-  <%= @reservation.reason %>
-</p>
+  <tr>
+    <td>Reason:</td>
+    <td>
+      <div class="well">
+        <%= @reservation.reason %>
+      </div>
+    </td>
+  </tr>
 
-<p>
-  <b>Requested:</b>
-  <%= @reservation.requested_at %>
-</p>
-
-<p>
-  <b>Expiration:</b>
-  <%= @reservation.expiration %>
-</p>
-
-<p>
-  <b>Status:</b>
-  <%= @reservation.status_id %>
-</p>
-
+  <tr>
+    <td>&nbsp;</td>
+    <td>
+      <div class="pull-left">Requested<br /><%= @reservation.requested_at %> </div>
+      <div class="pull-right">Expires<br /><%= @reservation.requested_at + @reservation.expiration.days %></div>
+      <div class="progress progress-striped">
+        <div class="bar"
+           style="width: <%= (@reservation_days.to_f/@reservation.expiration)*100 %>%;"></div>
+      </div>
+  </td>
+  </tr>
+  
+  <tr>
+    <td>
+      Status:
+      <input type="hidden" name="reservation[status_id]" value="<%= @reservation.status_id %>" />
+    </td>
+    <td>
+      <div class="btn-group" data-toggle-name="reservation[status_id]" data-toggle="buttons-radio" >
+      <% Status.all.each do |s| %>
+        <% if s.id == @reservation.status_id %>
+        <button class="btn active" value="<%= s.id %>" class="btn btn-large" data-toggle="button" id="<%= s.label %>"><%= s.label %></button>
+        <% else %>
+        <button disabled class="btn" value="<%= s.id %>" class="btn btn-large" data-toggle="button" id="<%= s.label %>"><%= s.label %></button>
+        <% end %>
+      <% end %>
+      </div>
+    </td>    
+  </tr>
+</table>
 
 <%= link_to 'Edit', edit_reservation_path(@reservation) %> |
 <%= link_to 'Back', reservations_path %>
