@@ -1,4 +1,6 @@
 class ReservationsController < ApplicationController
+  filter_access_to :all
+  
   # GET /reservations
   # GET /reservations.json
   def index
