@@ -1,15 +1,8 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  user_id: 1
-  description: MyString
-  requested: 2012-05-25
-  expiration: 1
-  status_id: 1
-
-two:
-  user_id: 1
-  description: MyString
-  requested: 2012-05-25
+  loginid: 1
+  reason: I need to run a web server
+  requested_at: 2012-05-25
   expiration: 1
   status_id: 1

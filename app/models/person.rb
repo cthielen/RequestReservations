@@ -8,7 +8,8 @@ class Person < ActiveResource::Base
   rescue Errno::ENOENT => e
     Rails.logger.warn "config/dss-rm.yml is missing. Please fix (see config/dss-rm.example.yml)."
   end
-  
+
+  # Required by declarative_authorization to determine access
   def role_symbols
     roles.map { |x| x.to_sym }
   end

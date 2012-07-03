@@ -1,6 +1,6 @@
 class ReservationsController < ApplicationController
   filter_access_to :all
-  
+
   # GET /reservations
   # GET /reservations.json
   def index
@@ -28,7 +28,7 @@ class ReservationsController < ApplicationController
   # GET /reservations/new.json
   def new
     @reservation = Reservation.new
-    
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @reservation }
@@ -68,7 +68,7 @@ class ReservationsController < ApplicationController
           @reservation.sysaid_id = ticket.id
           @reservation.save # we'll assume this works since it just did and we're only changing an optional parameter
         end
-        
+
         format.html { redirect_to reservations_path, notice: 'Reservation was successfully created.' }
         format.json { render json: @reservation, status: :created, location: @reservation }
       else
@@ -101,7 +101,7 @@ class ReservationsController < ApplicationController
     @reservation = Reservation.find(params[:id])
     @reservation.status = Status.find_by_label("Cancelled")
     @reservation.save
-    
+
     if SYSAID_SUPPORT
       # Ensure the corresponding SysAid ticket is updated
       ticket = SysAid.find_by_id(@reservation.sysaid_id)
@@ -115,7 +115,7 @@ class ReservationsController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
+
   def approve
     @reservation = Reservation.find(params[:reservation_id])
     @reservation.status = Status.find_by_label('Approved')
@@ -134,12 +134,12 @@ class ReservationsController < ApplicationController
       format.json { render json: @reservation }
     end
   end
-  
+
   def deny
     @reservation = Reservation.find(params[:reservation_id])
     @reservation.status = Status.find_by_label('Denied')
     @reservation.save
-    
+
     if SYSAID_SUPPORT
       # Ensure the corresponding SysAid ticket is updated
       ticket = SysAid.find_by_id(@reservation.sysaid_id)
