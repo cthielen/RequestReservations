@@ -1,6 +1,9 @@
 class ApplicationController < ActionController::Base
-  before_filter CASClient::Frameworks::Rails::Filter, :except => [ :welcome, :logout ]
-  before_filter :set_current_user
+  include Authentication
+  helper :all
+
+  before_filter CASClient::Frameworks::Rails::GatewayFilter
+  before_filter :login_required, :except => [ :welcome, :logout ]
   filter_access_to :all, :except => [ :welcome, :logout ]
 
   protect_from_forgery
@@ -14,14 +17,5 @@ class ApplicationController < ActionController::Base
   def logout
     logger.info "#{session[:cas_user]}@#{request.remote_ip}: Logged out."
     CASClient::Frameworks::Rails::Filter.logout(self)
-  end
-
-  def current_user
-    Person.find(session[:cas_user])
-  end
-
-  protected
-  def set_current_user
-    Authorization.current_user = current_user
   end
 end
