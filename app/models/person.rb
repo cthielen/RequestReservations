@@ -13,4 +13,9 @@ class Person < ActiveResource::Base
   def role_symbols
     roles.map { |x| x.to_sym }
   end
+
+  # Returns true if the given symbol is in this.role_symbols
+  def has_role?(role_sym)
+    role_symbols.include? role_sym
+  end
 end
