@@ -14,4 +14,5 @@
 //= require jquery_ujs
 //= require bootstrap.min
 //= require underscore-min
+//= require js-routes
 //= require template
