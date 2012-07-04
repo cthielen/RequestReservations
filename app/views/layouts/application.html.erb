@@ -29,12 +29,15 @@
             <% unless session[:cas_user].nil? %>
             <% if current_user.has_role? :admin %>
               <li class="dropdown">
-                <%= li_link_with_class({:title => 'Administrate', :controller => 'application', :action => 'logout'}) %>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administrate <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#" id="admin-subnets">Subnets…</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#" id="admin-about">About…</a></li>
+                </ul>
+                <%= li_link_with_class({:title => 'Log out', :controller => 'application', :action => 'logout'}) %>
               </li>
             <% end %>
-            <li class="dropdown">
-              <%= li_link_with_class({:title => 'Log out', :controller => 'application', :action => 'logout'}) %>
-            </li>
             <% end %>
           </ul>
         </div>
