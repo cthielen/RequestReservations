@@ -40,3 +40,4 @@ gem 'rubycas-client'
 gem 'sysaid'
 
 gem 'declarative_authorization'
+gem 'js-routes'
