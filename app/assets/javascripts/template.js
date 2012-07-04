@@ -55,7 +55,7 @@ $(function() {
   application.about_dialog = function() {
     template.status_text("Loading...");
 
-    $.get(Routes.site_about_path(), function(data) {
+    $.get(Routes.about_path(), function(data) {
       template.hide_status();
       $("#modal_container").empty();
       $("#modal_container").append(data);

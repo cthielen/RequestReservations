@@ -18,4 +18,10 @@ class ApplicationController < ActionController::Base
     logger.info "#{session[:cas_user]}@#{request.remote_ip}: Logged out."
     CASClient::Frameworks::Rails::Filter.logout(self)
   end
+
+  def about
+    respond_to do |format|
+      format.html { render :partial => "about", :layout => false }
+    end
+  end
 end
