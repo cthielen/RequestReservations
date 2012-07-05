@@ -6,6 +6,7 @@
   <tr>
     <th>Status</th>
     <th>Requested</th>
+    <th>Network</th>
     <th>IP Address</th>
     <th>Port</th>
     <th>When</th>
@@ -17,6 +18,7 @@
   <tr>
     <td><%= reservation.status.label %></td>
     <td><%= reservation.reservation_type_in_words %></td>
+    <td><%= reservation.subnet.name unless reservation.subnet.nil? %></td>
     <td><%= reservation.ip_address %></td>
     <td><%= reservation.port %></td>
     <td><%= time_ago_in_words reservation.requested_at %> ago</td>

@@ -22,10 +22,9 @@
     </div>
   </div>
   <div class="control-group">
-    <%= f.label :ip_address, "IP Address", :class => "control-label" %>
+    <%= f.label :subnet_id, "Network", :class => "control-label" %>
     <div class="controls">
-      <input type="text" class="span1" id="ip_field_1" name="ip_field_1" maxlength="3" />.<input type="text" class="span1" id="ip_field_2" name="ip_field_2" maxlength="3" />.<input type="text" class="span1" id="ip_field_3" name="ip_field_3" maxlength="3" />.<input type="text" class="span1" id="ip_field_4" name="ip_field_4" maxlength="3" />
-      <%= f.hidden_field :ip_address %>
+      <%= f.collection_select(:subnet_id, Subnet.all, :id, :name) %>
     </div>
   </div>
   <div class="control-group" style="display: none;" id="reservation-port-field">

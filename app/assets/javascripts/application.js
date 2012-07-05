@@ -12,7 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery.autotab
 //= require bootstrap.min
 //= require underscore-min
 //= require js-routes
