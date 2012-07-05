@@ -4,7 +4,7 @@
     <h3>Subnets</h3>
   </div>
   <div class="modal-body">
-    <table class="table table-striped">
+    <table class="table table-striped" id="subnets">
       <thead>
         <tr>
           <th>Name</th>
@@ -15,13 +15,13 @@
         <% @subnets.each do |subnet| %>
           <tr>
             <td><%= subnet.name %></td>
-            <td><%= link_to "Remove", admin_subnet_path(subnet), :method => :delete, :confirm => "Are you sure?" %></td>
+            <td><%= link_to "Remove", admin_subnet_path(subnet), :method => :delete, :remote => true, :confirm => "Are you sure?" %></td>
           </tr>
         <% end %>
       </tbody>
     </table>
 
-    <%= form_for [:admin, @subnet], :remote => true, :html => { :class => "well form-inline" } do |f| %>
+    <%= form_for [:admin, @subnet], :remote => true, :html => { :class => "well form-inline", :id => "new-subnet" } do |f| %>
       <span class="help-block">Add new subnet:</span>
       <%= f.text_field :name, :html => { :class => "span3", :placeholder => "Name…" } %>
       <button type="submit" class="btn">Add</button>
@@ -31,3 +31,20 @@
     <a href="#" class="btn" data-dismiss="modal">Close</a>
   </div>
 </div>
+
+<script type="text/javascript">
+  // Subnet was created. Keep the view up-to-date by adding the corresponding table row
+  $("form#new-subnet").bind("ajax:success", function(event, data, status, xhr) {
+    var subnet = data;
+    // Add the row
+    $("table#subnets tbody tr:last").after("<tr><td>" + subnet.name + "</td><td><a href=\"/admin/subnets/" + subnet.id + "\" data-confirm=\"Are you sure?\" data-method=\"delete\" data-remote=\"true\" rel=\"nofollow\">Remove</a></td></tr>");
+    // Clear out the input
+    $("form#new-subnet #subnet_name").val("");
+  });
+
+  // Subnet was deleted. Keep the view up-to-date by deleting the corresponding table row
+  $("table#subnets tbody").on("ajax:success", "tr td a", function(event, data, status, xhr) {
+    console.log("delete called");
+    $(this).parent().parent().remove();
+  });
+</script>
