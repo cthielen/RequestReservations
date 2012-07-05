@@ -4,8 +4,28 @@
     <h3>Subnets</h3>
   </div>
   <div class="modal-body">
-    <h4>Request Reservations</h4>
-    Last updated: <%= LAST_UPDATED %>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @subnets.each do |subnet| %>
+          <tr>
+            <td><%= subnet.name %></td>
+            <td><a href="#">Remove</a></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <form class="well form-inline">
+      <span class="help-block">Add new subnet:</span>
+      <input type="text" class="span3" placeholder="Name…">
+      <button type="submit" class="btn">Add</button>
+    </form>
   </div>
   <div class="modal-footer">
     <a href="#" class="btn" data-dismiss="modal">Close</a>
