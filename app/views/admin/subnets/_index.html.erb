@@ -15,17 +15,17 @@
         <% @subnets.each do |subnet| %>
           <tr>
             <td><%= subnet.name %></td>
-            <td><a href="#">Remove</a></td>
+            <td><%= link_to "Remove", admin_subnet_path(subnet), :method => :delete, :confirm => "Are you sure?" %></td>
           </tr>
         <% end %>
       </tbody>
     </table>
 
-    <form class="well form-inline">
+    <%= form_for [:admin, @subnet], :remote => true, :html => { :class => "well form-inline" } do |f| %>
       <span class="help-block">Add new subnet:</span>
-      <input type="text" class="span3" placeholder="Name…">
+      <%= f.text_field :name, :html => { :class => "span3", :placeholder => "Name…" } %>
       <button type="submit" class="btn">Add</button>
-    </form>
+    <% end %>
   </div>
   <div class="modal-footer">
     <a href="#" class="btn" data-dismiss="modal">Close</a>

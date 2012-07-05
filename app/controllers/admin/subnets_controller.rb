@@ -4,7 +4,10 @@ class Admin::SubnetsController < Admin::BaseController
   # GET /subnets
   # GET /subnets.json
   def index
+    # This action renders a modal dialog which serves both the index & new functions,
+    # hence both variables being created here.
     @subnets = Subnet.all
+    @subnet = Subnet.new
 
     respond_to do |format|
       format.html { render :partial => "index", :layout => false }
@@ -46,7 +49,7 @@ class Admin::SubnetsController < Admin::BaseController
 
     respond_to do |format|
       if @subnet.save
-        format.html { redirect_to subnets_path, notice: 'Subnet was successfully created.' }
+        format.html { redirect_to admin_subnets_path, notice: 'Subnet was successfully created.' }
         format.json { render json: @subnet, status: :created, location: @subnet }
       else
         format.html { render action: "new" }
@@ -79,7 +82,7 @@ class Admin::SubnetsController < Admin::BaseController
     @subnet.destroy
 
     respond_to do |format|
-      format.html { redirect_to subnets_url }
+      format.html { redirect_to admin_subnets_url }
       format.json { head :no_content }
     end
   end
