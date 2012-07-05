@@ -22,6 +22,10 @@ class ReservationsController < ApplicationController
     @reservation = Reservation.find(params[:id])
     @reservation_days = (Date.today - @reservation.requested_at).to_f
 
+    if(current_user.loginid != @reservation.loginid) && (current_user.has_role? :admin == false)
+      @reservation = nil
+    end
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @reservation }
@@ -42,6 +46,10 @@ class ReservationsController < ApplicationController
   # GET /reservations/1/edit
   def edit
     @reservation = Reservation.find(params[:id])
+
+    if(current_user.loginid != @reservation.loginid) && (current_user.has_role? :admin == false)
+      @reservation = nil
+    end
   end
 
   # POST /reservations
@@ -88,12 +96,17 @@ class ReservationsController < ApplicationController
     @reservation = Reservation.find(params[:id])
 
     respond_to do |format|
-      if @reservation.update_attributes(params[:reservation])
-        format.html { redirect_to @reservation, notice: 'Reservation was successfully updated.' }
-        format.json { head :no_content }
+      if(current_user.loginid == @reservation.loginid) || (current_user.has_role? :admin)
+        if @reservation.update_attributes(params[:reservation])
+          format.html { redirect_to @reservation, notice: 'Reservation was successfully updated.' }
+          format.json { head :no_content }
+        else
+          format.html { render action: "edit" }
+          format.json { render json: @reservation.errors, status: :unprocessable_entity }
+        end
       else
-        format.html { render action: "edit" }
-        format.json { render json: @reservation.errors, status: :unprocessable_entity }
+        format.html { redirect_to reservations_path, notice: 'You do not have permission to edit that reservation.' }
+        format.json { render json: nil, status: :failed, location: reservations_path }
       end
     end
   end
@@ -103,15 +116,18 @@ class ReservationsController < ApplicationController
   # Note: We never delete a reservation. We merely change its status to cancelled.
   def destroy
     @reservation = Reservation.find(params[:id])
-    @reservation.status = Status.find_by_label("Cancelled")
-    @reservation.save
 
-    if SYSAID_SUPPORT
-      # Ensure the corresponding SysAid ticket is updated
-      ticket = SysAid.find_by_id(@reservation.sysaid_id)
-      ticket.status = SYSAID_STATUS_CLOSED
-      ticket.notes = "Closed by Request Reservations system (cancelled)"
-      ticket.save
+    if(current_user.loginid == @reservation.loginid) || (current_user.has_role? :admin)
+      @reservation.status = Status.find_by_label("Cancelled")
+      @reservation.save
+
+      if SYSAID_SUPPORT
+        # Ensure the corresponding SysAid ticket is updated
+        ticket = SysAid.find_by_id(@reservation.sysaid_id)
+        ticket.status = SYSAID_STATUS_CLOSED
+        ticket.notes = "Closed by Request Reservations system (cancelled)"
+        ticket.save
+      end
     end
 
     respond_to do |format|
