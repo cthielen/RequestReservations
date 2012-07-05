@@ -4,7 +4,11 @@ class ReservationsController < ApplicationController
   # GET /reservations
   # GET /reservations.json
   def index
-    @reservations = Reservation.where(:loginid => session[:cas_user])
+    if current_user.has_role? :admin
+      @reservations = Reservation.all
+    else
+      @reservations = Reservation.where(:loginid => session[:cas_user])
+    end
 
     respond_to do |format|
       format.html # index.html.erb

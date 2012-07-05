@@ -4,6 +4,9 @@
 
 <table class="table table-striped">
   <tr>
+    <% if current_user.has_role? :admin %>
+    <th>User</th>
+    <% end %>
     <th>Status</th>
     <th>Requested</th>
     <th>Network</th>
@@ -16,6 +19,9 @@
 
 <% @reservations.each do |reservation| %>
   <tr>
+    <% if current_user.has_role? :admin %>
+    <th><%= reservation.loginid %></th>
+    <% end %>
     <td><%= reservation.status.label %></td>
     <td><%= reservation.reservation_type_in_words %></td>
     <td><%= reservation.subnet.name unless reservation.subnet.nil? %></td>
