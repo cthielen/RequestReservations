@@ -1,4 +1,5 @@
 class Reservation < ActiveRecord::Base
+  using_access_control
   attr_accessible :reason, :expiration, :requested_at, :status_id, :loginid, :reservation_type, :port, :ip_address
   belongs_to :status
   validates :loginid, :reason, :requested_at, :expiration, :status_id, :reservation_type, :presence => true

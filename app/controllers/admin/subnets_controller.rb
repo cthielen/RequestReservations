@@ -7,7 +7,7 @@ class Admin::SubnetsController < Admin::BaseController
     @subnets = Subnet.all
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html { render :partial => "index", :layout => false }
       format.json { render json: @subnets }
     end
   end

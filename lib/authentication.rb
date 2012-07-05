@@ -50,12 +50,14 @@ module Authentication
       begin
         @@user = Person.find(session[:cas_user])
         Authorization.current_user = @@user
+        logger.info "Login successfully processed for " + session[:cas_user]
         return true
       rescue Exception => e
         # User not found
         flash[:error] = 'You have authenticated but are not allowed access.'
         @@user = nil
         Authorization.current_user = nil
+        logger.info "Login failed though CAS redirected. Reason: " + e.to_s
       end
     else
       flash[:error] = 'You must authenticate with CAS to continue.'
