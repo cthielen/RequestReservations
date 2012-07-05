@@ -4,6 +4,10 @@ RequestReservations::Application.routes.draw do
     get 'deny'
   end
 
+  namespace :admin do
+    resources :subnets
+  end
+
   get '/welcome', :controller => "application", :action => "welcome"
   get '/logout', :controller => "application", :action => "logout"
   get '/about', :controller => "application", :action => "about"
