@@ -17,3 +17,6 @@
 .DS_Store
 config/sysaid.yml
 config/dss-rm.yml
+
+# Ignore configurations that need to be set up on deployment
+config/database.yml
