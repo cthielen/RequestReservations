@@ -6,4 +6,6 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+Authorization.ignore_access_control(true)
+
 statuses = Status.create([{ label: 'New' }, { label: 'Denied' }, { label: 'Approved' }, { label: 'Expired' }, { label: 'Cancelled' }])
