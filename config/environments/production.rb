@@ -51,6 +51,12 @@ RequestReservations::Application.configure do
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
 
+  # Send emails to file
+  config.action_mailer.delivery_method = :sendmail
+
+  # We need full paths in the mailer, so we need to specify a host
+  config.action_mailer.default_url_options = { :host => "reservations.dss.ucdavis.edu" }
+
   # Enable threaded mode
   # config.threadsafe!
 
