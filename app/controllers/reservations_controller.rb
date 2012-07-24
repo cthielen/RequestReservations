@@ -72,7 +72,7 @@ class ReservationsController < ApplicationController
           # Generate a ticket
           ticket = SysAid::Ticket.new
           ticket.title = "New #{@reservation.reservation_type_in_words} request from #{@reservation.loginid}"
-          ticket.assignedTo = "cthielen"
+          ticket.assignedTo = SYSAID_ASSIGN_TO
           ticket.requestUser = @reservation.loginid
           ticket.status = SYSAID_STATUS_NEW
           ticket.save
