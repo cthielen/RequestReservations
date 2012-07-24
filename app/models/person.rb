@@ -11,7 +11,7 @@ class Person < ActiveResource::Base
 
   # Required by declarative_authorization to determine access
   def role_symbols
-    roles.map { |x| x.to_sym }
+    roles.map { |x| x.token.to_sym }
   end
 
   # Returns true if the given symbol is in this.role_symbols
