@@ -40,7 +40,7 @@ class Admin::CommunicationsController < Admin::BaseController
 
   # POST /communications.json
   def create
-    @communication = Communication.new(params[:Communication])
+    @communication = Communication.new(params[:communication])
 
     respond_to do |format|
       if @communication.save

@@ -8,6 +8,8 @@
       <thead>
         <tr>
           <th>Name</th>
+          <th>Method</th>
+          <th>Value</th>
           <th></th>
         </tr>
       </thead>
@@ -15,6 +17,8 @@
         <% @communications.each do |communication| %>
           <tr>
             <td><%= communication.name %></td>
+            <td><%= communication.method %></td>
+            <td><%= communication.value %></td>
             <td><%= link_to "Remove", admin_communication_path(communication), :method => :delete, :remote => true, :confirm => "Are you sure?" %></td>
           </tr>
         <% end %>
@@ -23,7 +27,9 @@
 
     <%= form_for [:admin, @communication], :remote => true, :html => { :class => "well form-inline", :id => "new-communication" } do |f| %>
       <span class="help-block">Add new communication:</span>
-      <%= f.text_field :name, :html => { :class => "span3", :placeholder => "Name…" } %>
+      <%= f.text_field :name, :class => "span2", :placeholder => "Name…" %>
+      <%= f.select(:method, [ ["E-Mail", "E-Mail"], ["SysAid", "SysAid"] ], {}, :class => "span2" ) %>
+      <%= f.text_field :value, :class => "span2", :placeholder => "Value…" %>
       <button type="submit" class="btn">Add</button>
     <% end %>
   </div>
@@ -37,9 +43,11 @@
   $("form#new-communication").bind("ajax:success", function(event, data, status, xhr) {
     var communication = data;
     // Add the row
-    $("table#communications tbody tr:last").after("<tr><td>" + communication.name + "</td><td><a href=\"/admin/communications/" + communication.id + "\" data-confirm=\"Are you sure?\" data-method=\"delete\" data-remote=\"true\" rel=\"nofollow\">Remove</a></td></tr>");
+    $("table#communications tbody tr:last").after("<tr><td>" + communication.name + "</td><td>" + communication.method + "</td><td>" + communication.value + "</td><td><a href=\"/admin/communications/" + communication.id + "\" data-confirm=\"Are you sure?\" data-method=\"delete\" data-remote=\"true\" rel=\"nofollow\">Remove</a></td></tr>");
     // Clear out the input
     $("form#new-communication #communication_name").val("");
+    $("form#new-communication #communication_method").val("E-Mail"); // E-Mail is the default
+    $("form#new-communication #communication_value").val("");
   });
 
   // Communication was deleted. Keep the view up-to-date by deleting the corresponding table row
