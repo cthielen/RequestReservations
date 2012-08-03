@@ -1,8 +1,10 @@
 class ReservationMailer < ActionMailer::Base
-  default from: "from@example.com"
-  
+  default from: "no-reply@#{ActionMailer::Base.default_url_options[:host]}"
+
   def new_reservation(reservation)
     @reservation = reservation
-    mail(:to => "something@example.com", :subject => "New Reservation Request")
+    Alert.where(:method => "E-Mail").each do |alert|
+      mail(:to => alert.value, :subject => "New Reservation Request")
+    end
   end
 end

@@ -13,7 +13,6 @@ begin
 
   SYSAID_STATUS_NEW = 1
   SYSAID_STATUS_CLOSED = 3
-  SYSAID_ASSIGN_TO = sysaid_settings['assignTo']
 rescue Errno::ENOENT => e
   Rails.logger.warn "config/sysaid.yml is missing. Disabling SysAid support."
   SYSAID_SUPPORT = false
