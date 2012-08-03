@@ -78,11 +78,11 @@ class ReservationsController < ApplicationController
             ticket.requestUser = @reservation.loginid
             ticket.status = SYSAID_STATUS_NEW
             ticket.save
+            @reservation.sysaid_id = ticket.id
             logger.info "Generated a SysAid ticket with ID #{ticket.id} for reservation no. #{@reservation.id}"
           else
             logger.info "SysAid support is active but no alerts for SysAid are specified. No ticket has been generated."
           end
-          @reservation.sysaid_id = ticket.id
           @reservation.save # we'll assume this works since it just did and we're only changing an optional parameter
         end
 
