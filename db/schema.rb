@@ -11,7 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120705211408) do
+ActiveRecord::Schema.define(:version => 20120803223528) do
+
+  create_table "communications", :force => true do |t|
+    t.string   "name"
+    t.string   "method"
+    t.string   "value"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "reservations", :force => true do |t|
     t.string   "loginid"

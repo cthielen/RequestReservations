@@ -1,0 +1,50 @@
+<div class="modal" id="communications_modal">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">×</a>
+    <h3>Communications</h3>
+  </div>
+  <div class="modal-body">
+    <table class="table table-striped" id="communications">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @communications.each do |communication| %>
+          <tr>
+            <td><%= communication.name %></td>
+            <td><%= link_to "Remove", admin_communication_path(communication), :method => :delete, :remote => true, :confirm => "Are you sure?" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <%= form_for [:admin, @communication], :remote => true, :html => { :class => "well form-inline", :id => "new-communication" } do |f| %>
+      <span class="help-block">Add new communication:</span>
+      <%= f.text_field :name, :html => { :class => "span3", :placeholder => "Name…" } %>
+      <button type="submit" class="btn">Add</button>
+    <% end %>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal">Close</a>
+  </div>
+</div>
+
+<script type="text/javascript">
+  // Communication was created. Keep the view up-to-date by adding the corresponding table row
+  $("form#new-communication").bind("ajax:success", function(event, data, status, xhr) {
+    var communication = data;
+    // Add the row
+    $("table#communications tbody tr:last").after("<tr><td>" + communication.name + "</td><td><a href=\"/admin/communications/" + communication.id + "\" data-confirm=\"Are you sure?\" data-method=\"delete\" data-remote=\"true\" rel=\"nofollow\">Remove</a></td></tr>");
+    // Clear out the input
+    $("form#new-communication #communication_name").val("");
+  });
+
+  // Communication was deleted. Keep the view up-to-date by deleting the corresponding table row
+  $("table#communications tbody").on("ajax:success", "tr td a", function(event, data, status, xhr) {
+    console.log("delete called");
+    $(this).parent().parent().remove();
+  });
+</script>

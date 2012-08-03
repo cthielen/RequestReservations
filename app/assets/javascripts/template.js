@@ -39,6 +39,7 @@ $(function() {
     });
 
     $("#admin-subnets").click(application.subnets_dialog);
+    $("#admin-communications").click(application.communications_dialog);
     $("#admin-about").click(application.about_dialog);
   }
 
@@ -61,6 +62,17 @@ $(function() {
       $("#modal_container").empty();
       $("#modal_container").append(data);
       $("#subnets_modal").modal();
+    });
+  }
+
+  application.communications_dialog = function() {
+    template.status_text("Loading...");
+
+    $.get(Routes.admin_communications_path(), function(data) {
+      template.hide_status();
+      $("#modal_container").empty();
+      $("#modal_container").append(data);
+      $("#communications_modal").modal();
     });
   }
 

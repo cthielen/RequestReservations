@@ -6,6 +6,7 @@ RequestReservations::Application.routes.draw do
 
   namespace :admin do
     resources :subnets
+    resources :communications
   end
 
   get '/welcome', :controller => "application", :action => "welcome"

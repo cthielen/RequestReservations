@@ -4,7 +4,9 @@ authorization do
     has_permission_on :reservations, :to => [:new, :index, :show, :update, :delete, :create, :destroy]
     has_permission_on :application, :to => [:welcome, :about, :logout]
     has_permission_on :admin_subnets, :to => [:index, :create, :destroy]
+    has_permission_on :admin_communications, :to => [:index, :create, :destroy]
     has_permission_on :subnets, :to => [:create, :delete]
+    has_permission_on :communications, :to => [:create, :delete]
   end
   role :access do
     has_permission_on :reservations, :to => [:new, :index, :show, :update, :delete, :create, :destroy]
