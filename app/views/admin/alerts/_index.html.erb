@@ -1,0 +1,57 @@
+<div class="modal" id="alerts_modal">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">×</a>
+    <h3>Alerts</h3>
+  </div>
+  <div class="modal-body">
+    <table class="table table-striped" id="alerts">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Method</th>
+          <th>Value</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @alerts.each do |alert| %>
+          <tr>
+            <td><%= alert.name %></td>
+            <td><%= alert.method %></td>
+            <td><%= alert.value %></td>
+            <td><%= link_to "Remove", admin_alert_path(alert), :method => :delete, :remote => true, :confirm => "Are you sure?" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <%= form_for [:admin, @alert], :remote => true, :html => { :class => "well form-inline", :id => "new-alert" } do |f| %>
+      <span class="help-block">Add new alert:</span>
+      <%= f.text_field :name, :class => "span2", :placeholder => "Name…" %>
+      <%= f.select(:method, [ ["E-Mail", "E-Mail"], ["SysAid", "SysAid"] ], {}, :class => "span2" ) %>
+      <%= f.text_field :value, :class => "span2", :placeholder => "Value…" %>
+      <button type="submit" class="btn">Add</button>
+    <% end %>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal">Close</a>
+  </div>
+</div>
+
+<script type="text/javascript">
+  // Alert was created. Keep the view up-to-date by adding the corresponding table row
+  $("form#new-alert").bind("ajax:success", function(event, data, status, xhr) {
+    var alert = data;
+    // Add the row
+    $("table#alerts tbody tr:last").after("<tr><td>" + alert.name + "</td><td>" + alert.method + "</td><td>" + alert.value + "</td><td><a href=\"/admin/alerts/" + alert.id + "\" data-confirm=\"Are you sure?\" data-method=\"delete\" data-remote=\"true\" rel=\"nofollow\">Remove</a></td></tr>");
+    // Clear out the input
+    $("form#new-alert #alert_name").val("");
+    $("form#new-alert #alert_method").val("E-Mail"); // E-Mail is the default
+    $("form#new-alert #alert_value").val("");
+  });
+
+  // Alert was deleted. Keep the view up-to-date by deleting the corresponding table row
+  $("table#alerts tbody").on("ajax:success", "tr td a", function(event, data, status, xhr) {
+    $(this).parent().parent().remove();
+  });
+</script>

@@ -11,9 +11,9 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120803223528) do
+ActiveRecord::Schema.define(:version => 20120803225834) do
 
-  create_table "communications", :force => true do |t|
+  create_table "alerts", :force => true do |t|
     t.string   "name"
     t.string   "method"
     t.string   "value"

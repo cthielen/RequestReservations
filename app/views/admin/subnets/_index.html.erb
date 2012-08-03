@@ -44,7 +44,6 @@
 
   // Subnet was deleted. Keep the view up-to-date by deleting the corresponding table row
   $("table#subnets tbody").on("ajax:success", "tr td a", function(event, data, status, xhr) {
-    console.log("delete called");
     $(this).parent().parent().remove();
   });
 </script>

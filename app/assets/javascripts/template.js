@@ -39,7 +39,7 @@ $(function() {
     });
 
     $("#admin-subnets").click(application.subnets_dialog);
-    $("#admin-communications").click(application.communications_dialog);
+    $("#admin-alerts").click(application.alerts_dialog);
     $("#admin-about").click(application.about_dialog);
   }
 
@@ -65,14 +65,14 @@ $(function() {
     });
   }
 
-  application.communications_dialog = function() {
+  application.alerts_dialog = function() {
     template.status_text("Loading...");
 
-    $.get(Routes.admin_communications_path(), function(data) {
+    $.get(Routes.admin_alerts_path(), function(data) {
       template.hide_status();
       $("#modal_container").empty();
       $("#modal_container").append(data);
-      $("#communications_modal").modal();
+      $("#alerts_modal").modal();
     });
   }
 

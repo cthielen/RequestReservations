@@ -1,4 +1,4 @@
-class Communication < ActiveRecord::Base
+class Alert < ActiveRecord::Base
   using_access_control
 
   validates_inclusion_of :method, :in => %w( E-Mail SysAid ), :message => "method is not valid"
